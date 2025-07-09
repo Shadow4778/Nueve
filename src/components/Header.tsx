@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, ShoppingCart, Heart, Menu, X, User, Package, LogOut } from 'lucide-react';
+import { Search, ShoppingCart, Heart, Menu, X, User, Package, LogOut, UserCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 interface HeaderProps {
@@ -94,47 +94,74 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
             {/* User Menu */}
             {state.user ? (
               <div className="relative" ref={userMenuRef}>
+                {/* Profile Picture - Logged In */}
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="bg-pastel-lemon p-2 rounded-full hover:bg-pastel-lemon-dark hover:scale-110 transition-all duration-200 shadow-sm border border-pastel-lemon-dark transform hover:rotate-6"
+                  className="relative bg-gradient-to-br from-pastel-blue to-pastel-blue-dark p-1 rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-2 border-white transform hover:rotate-6"
                 >
-                  <User className="w-4 h-4 text-slate-600" />
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                    <UserCircle className="w-6 h-6 text-pastel-blue-dark" />
+                  </div>
+                  {/* Online indicator */}
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-pastel-green-dark border-2 border-white rounded-full"></div>
                 </button>
                 
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-pastel-blue z-50">
-                    <div className="p-3 border-b border-pastel-blue-light">
-                      <p className="font-medium text-slate-700">{state.user.name || 'User'}</p>
-                      <p className="text-sm text-slate-600">{state.user.phone}</p>
+                  <div className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-xl border border-pastel-blue z-50 overflow-hidden">
+                    {/* User Info Header */}
+                    <div className="bg-gradient-to-r from-pastel-blue-light to-pastel-blue p-4 border-b border-pastel-blue">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+                          <UserCircle className="w-8 h-8 text-pastel-blue-dark" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-700">{state.user.name || 'User'}</p>
+                          <p className="text-sm text-slate-600">{state.user.phone}</p>
+                        </div>
+                      </div>
                     </div>
+                    
+                    {/* Menu Items */}
                     <div className="py-2">
                       <button
                         onClick={() => {
                           dispatch({ type: 'TOGGLE_ORDERS' });
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-2 transition-colors"
+                        className="w-full text-left px-4 py-3 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-3 transition-colors group"
                       >
-                        <Package className="w-4 h-4" />
-                        <span>My Orders</span>
+                        <div className="w-8 h-8 bg-pastel-orange-light rounded-lg flex items-center justify-center group-hover:bg-pastel-orange transition-colors">
+                          <Package className="w-4 h-4 text-pastel-orange-dark" />
+                        </div>
+                        <span className="font-medium">My Orders</span>
                       </button>
+                      
+                      <div className="border-t border-pastel-blue-light mx-2 my-2"></div>
+                      
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-2 transition-colors"
+                        className="w-full text-left px-4 py-3 text-slate-600 hover:bg-red-50 flex items-center space-x-3 transition-colors group"
                       >
-                        <LogOut className="w-4 h-4" />
-                        <span>Logout</span>
+                        <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
+                          <LogOut className="w-4 h-4 text-red-500" />
+                        </div>
+                        <span className="font-medium text-red-600">Logout</span>
                       </button>
                     </div>
                   </div>
                 )}
               </div>
             ) : (
+              {/* Profile Picture - Not Logged In */}
               <button
                 onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}
-                className="bg-pastel-lemon p-2 rounded-full hover:bg-pastel-lemon-dark hover:scale-110 transition-all duration-200 shadow-sm border border-pastel-lemon-dark transform hover:rotate-6"
+                className="relative bg-gradient-to-br from-pastel-grey-light to-pastel-grey p-1 rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-2 border-white transform hover:rotate-6 group"
               >
-                <User className="w-4 h-4 text-slate-600" />
+                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center group-hover:bg-pastel-blue-light transition-colors">
+                  <UserCircle className="w-6 h-6 text-slate-400 group-hover:text-pastel-blue-dark transition-colors" />
+                </div>
+                {/* Login prompt indicator */}
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-pastel-orange-dark border-2 border-white rounded-full animate-pulse"></div>
               </button>
             )}
 
@@ -188,6 +215,48 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
                   className="w-full pl-10 pr-4 py-2 bg-white border border-pastel-blue rounded-full focus:outline-none focus:ring-2 focus:ring-pastel-blue-dark text-sm font-medium text-slate-600 placeholder-slate-400 shadow-sm"
                 />
               </div>
+              
+              {/* Mobile User Menu */}
+              {state.user ? (
+                <div className="flex items-center space-x-3 p-3 bg-pastel-blue-light rounded-lg border border-pastel-blue">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                    <UserCircle className="w-6 h-6 text-pastel-blue-dark" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-slate-700">{state.user.name || 'User'}</p>
+                    <p className="text-xs text-slate-600">{state.user.phone}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      dispatch({ type: 'TOGGLE_ORDERS' });
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-pastel-orange-light p-2 rounded-lg hover:bg-pastel-orange transition-colors"
+                  >
+                    <Package className="w-4 h-4 text-pastel-orange-dark" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-red-100 p-2 rounded-lg hover:bg-red-200 transition-colors"
+                  >
+                    <LogOut className="w-4 h-4 text-red-500" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    dispatch({ type: 'TOGGLE_LOGIN' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="bg-pastel-blue-dark text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-pastel-blue transition-all shadow-sm border border-pastel-blue text-center transform hover:scale-105"
+                >
+                  Login / Sign Up
+                </button>
+              )}
+              
               <a href="#" className="bg-pastel-blue-light text-slate-600 px-4 py-2 rounded-full font-medium text-sm hover:bg-pastel-blue transition-all shadow-sm border border-pastel-blue text-center transform hover:scale-105">
                 New Arrivals
               </a>

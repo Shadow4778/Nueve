@@ -83,7 +83,7 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {/* Mobile Search */}
             <div className="md:hidden">
               <button className="bg-pastel-blue p-2 rounded-full hover:bg-pastel-blue-dark hover:scale-110 transition-all duration-200 shadow-sm border border-pastel-blue-dark">
@@ -91,19 +91,25 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
               </button>
             </div>
 
-            {/* User Menu */}
+            {/* Profile Picture - Enhanced Visibility */}
             {state.user ? (
               <div className="relative" ref={userMenuRef}>
                 {/* Profile Picture - Logged In */}
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="relative bg-gradient-to-br from-pastel-blue to-pastel-blue-dark p-1 rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-2 border-white transform hover:rotate-6"
+                  className="relative w-12 h-12 bg-gradient-to-br from-pastel-blue to-pastel-blue-dark rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-3 border-white transform hover:rotate-6 flex items-center justify-center"
+                  style={{ 
+                    minWidth: '48px', 
+                    minHeight: '48px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                  }}
                 >
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                    <UserCircle className="w-6 h-6 text-pastel-blue-dark" />
-                  </div>
+                  <UserCircle className="w-8 h-8 text-white drop-shadow-sm" />
                   {/* Online indicator */}
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-pastel-green-dark border-2 border-white rounded-full"></div>
+                  <div 
+                    className="absolute -bottom-1 -right-1 w-4 h-4 bg-pastel-green-dark border-2 border-white rounded-full"
+                    style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
+                  ></div>
                 </button>
                 
                 {showUserMenu && (
@@ -155,13 +161,19 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
               /* Profile Picture - Not Logged In */
               <button
                 onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}
-                className="relative bg-gradient-to-br from-pastel-grey-light to-pastel-grey p-1 rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-2 border-white transform hover:rotate-6 group"
+                className="relative w-12 h-12 bg-gradient-to-br from-pastel-grey-light to-pastel-grey rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-3 border-white transform hover:rotate-6 group flex items-center justify-center"
+                style={{ 
+                  minWidth: '48px', 
+                  minHeight: '48px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                }}
               >
-                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center group-hover:bg-pastel-blue-light transition-colors">
-                  <UserCircle className="w-6 h-6 text-slate-400 group-hover:text-pastel-blue-dark transition-colors" />
-                </div>
+                <UserCircle className="w-8 h-8 text-slate-500 group-hover:text-pastel-blue-dark transition-colors drop-shadow-sm" />
                 {/* Login prompt indicator */}
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-pastel-orange-dark border-2 border-white rounded-full animate-pulse"></div>
+                <div 
+                  className="absolute -top-1 -right-1 w-4 h-4 bg-pastel-orange-dark border-2 border-white rounded-full animate-pulse"
+                  style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
+                ></div>
               </button>
             )}
 
@@ -219,8 +231,8 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
               {/* Mobile User Menu */}
               {state.user ? (
                 <div className="flex items-center space-x-3 p-3 bg-pastel-blue-light rounded-lg border border-pastel-blue">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                    <UserCircle className="w-6 h-6 text-pastel-blue-dark" />
+                  <div className="w-10 h-10 bg-gradient-to-br from-pastel-blue to-pastel-blue-dark rounded-full flex items-center justify-center shadow-sm border-2 border-white">
+                    <UserCircle className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-slate-700">{state.user.name || 'User'}</p>
@@ -251,9 +263,10 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
                     dispatch({ type: 'TOGGLE_LOGIN' });
                     setIsMenuOpen(false);
                   }}
-                  className="bg-pastel-blue-dark text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-pastel-blue transition-all shadow-sm border border-pastel-blue text-center transform hover:scale-105"
+                  className="bg-pastel-blue-dark text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-pastel-blue transition-all shadow-sm border border-pastel-blue text-center transform hover:scale-105 flex items-center justify-center space-x-2"
                 >
-                  Login / Sign Up
+                  <UserCircle className="w-5 h-5" />
+                  <span>Login / Sign Up</span>
                 </button>
               )}
               

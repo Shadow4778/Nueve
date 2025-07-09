@@ -1,0 +1,26 @@
+@@ .. @@
+ @tailwind components;
+ @tailwind utilities;
+ 
++/* Cross-browser compatibility fixes */
++* {
++  box-sizing: border-box;
++}
++
++/* Ensure consistent rendering across browsers */
++button {
++  -webkit-appearance: none;
++  -moz-appearance: none;
++  appearance: none;
++  border: none;
++  background: none;
++  cursor: pointer;
++}
++
++/* Fix for Safari and older browsers */
++.border-3 {
++  border-width: 3px;
++}
++
+ /* Custom slider styles for pastel look */
+ .slider::-webkit-slider-thumb {

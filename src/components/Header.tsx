@@ -152,7 +152,7 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
                 )}
               </div>
             ) : (
-              {/* Profile Picture - Not Logged In */}
+              /* Profile Picture - Not Logged In */
               <button
                 onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}
                 className="relative bg-gradient-to-br from-pastel-grey-light to-pastel-grey p-1 rounded-full hover:scale-110 transition-all duration-200 shadow-lg border-2 border-white transform hover:rotate-6 group"

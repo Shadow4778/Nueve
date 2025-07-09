@@ -1,0 +1,22 @@
+{
+  "name": "nueve-fashion-ecommerce",
+  "version": "1.0.0",
+  "description": "Full-stack fashion e-commerce application",
+  "private": true,
+  "workspaces": [
+    "project/project",
+    "project/backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=project/project",
+    "dev:frontend": "npm run dev --workspace=project/project",
+    "dev:backend": "npm run dev --workspace=project/backend",
+    "start:backend": "npm run start --workspace=project/backend",
+    "build": "npm run build --workspace=project/project",
+    "install:all": "npm install && npm install --workspace=project/project && npm install --workspace=project/backend",
+    "init-db": "npm run init-db --workspace=project/backend"
+  },
+  "keywords": ["ecommerce", "fashion", "react", "nodejs", "mysql"],
+  "author": "Nueve Team",
+  "license": "MIT"
+}

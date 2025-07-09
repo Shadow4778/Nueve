@@ -1,26 +1,57 @@
-@@ .. @@
- @tailwind components;
- @tailwind utilities;
- 
-+/* Cross-browser compatibility fixes */
-+* {
-+  box-sizing: border-box;
-+}
-+
-+/* Ensure consistent rendering across browsers */
-+button {
-+  -webkit-appearance: none;
-+  -moz-appearance: none;
-+  appearance: none;
-+  border: none;
-+  background: none;
-+  cursor: pointer;
-+}
-+
-+/* Fix for Safari and older browsers */
-+.border-3 {
-+  border-width: 3px;
-+}
-+
- /* Custom slider styles for pastel look */
- .slider::-webkit-slider-thumb {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cross-browser compatibility fixes */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure consistent rendering across browsers */
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Fix for Safari and older browsers */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Custom slider styles for pastel look */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #475569;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  background: #334155;
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #475569;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  background: #334155;
+}

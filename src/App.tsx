@@ -30,25 +30,25 @@ function AppContent() {
   }, [searchQuery, selectedCategory, priceRange]);
 
   return (
-    <div className="min-h-screen bg-pastel-blue-light">
+    <div className="min-h-screen bg-primary-50">
       <Header onSearch={setSearchQuery} searchQuery={searchQuery} />
       
       {/* Hero Section */}
-      <section className="relative py-16 px-4 bg-pastel-blue-light">
+      <section className="relative py-16 px-4 bg-primary-100">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 transform -rotate-1">
-            <span className="bg-white text-slate-700 px-6 py-3 rounded-2xl shadow-sm border-2 border-pastel-blue inline-block transform hover:rotate-1 transition-transform duration-300">
+            <span className="bg-white text-primary-700 px-6 py-3 rounded-2xl shadow-sm border-2 border-primary-300 inline-block transform hover:rotate-1 transition-transform duration-300">
               Nueve Collection
             </span>
           </h1>
-          <p className="text-lg md:text-xl font-medium text-slate-600 mb-8 max-w-2xl mx-auto bg-white px-6 py-3 rounded-full shadow-sm border border-pastel-blue transform rotate-1">
+          <p className="text-lg md:text-xl font-medium text-primary-600 mb-8 max-w-2xl mx-auto bg-white px-6 py-3 rounded-full shadow-sm border border-primary-300 transform rotate-1">
             Discover timeless pieces that define your style
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
-            <button className="bg-pastel-blue-dark text-white px-8 py-3 rounded-full font-medium text-base hover:bg-pastel-blue transition-all transform hover:scale-105 hover:-rotate-2 shadow-sm border border-pastel-blue">
+            <button className="bg-primary-600 text-white px-8 py-3 rounded-full font-medium text-base hover:bg-primary-700 transition-all transform hover:scale-105 hover:-rotate-2 shadow-sm border border-primary-700">
               Shop Now
             </button>
-            <button className="bg-white text-slate-600 px-8 py-3 rounded-full font-medium text-base hover:bg-pastel-blue-light transition-all transform hover:scale-105 hover:rotate-2 shadow-sm border border-pastel-blue">
+            <button className="bg-white text-primary-600 px-8 py-3 rounded-full font-medium text-base hover:bg-primary-100 transition-all transform hover:scale-105 hover:rotate-2 shadow-sm border border-primary-300">
               Learn More
             </button>
           </div>
@@ -71,18 +71,18 @@ function AppContent() {
           {/* Products Grid */}
           <div className="lg:col-span-3">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-semibold text-slate-700 bg-white px-4 py-2 rounded-full shadow-sm border border-pastel-blue transform -rotate-1">
+              <h2 className="text-2xl font-semibold text-primary-700 bg-white px-4 py-2 rounded-full shadow-sm border border-primary-300 transform -rotate-1">
                 {selectedCategory === 'all' ? 'All Products' : `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}`}
               </h2>
-              <p className="text-sm font-medium text-slate-600 bg-white px-3 py-2 rounded-full shadow-sm border border-pastel-blue">
+              <p className="text-sm font-medium text-primary-600 bg-white px-3 py-2 rounded-full shadow-sm border border-primary-300">
                 {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
               </p>
             </div>
             
             {filteredProducts.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-2xl shadow-sm border border-pastel-blue">
-                <p className="text-xl font-semibold text-slate-700 mb-2">No products found</p>
-                <p className="text-base font-medium text-pastel-blue-dark">Try adjusting your filters or search terms</p>
+              <div className="text-center py-12 bg-white rounded-2xl shadow-sm border border-primary-300">
+                <p className="text-xl font-semibold text-primary-700 mb-2">No products found</p>
+                <p className="text-base font-medium text-primary-600">Try adjusting your filters or search terms</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

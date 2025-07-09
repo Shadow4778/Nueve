@@ -38,7 +38,7 @@ export default function ProductCard({ product, onProductClick }: ProductCardProp
   return (
     <div 
       onClick={() => onProductClick(product)}
-      className="group cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:rotate-1 overflow-hidden border border-pastel-blue hover:border-pastel-blue-dark"
+      className="group cursor-pointer bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:rotate-1 overflow-hidden border border-primary-300 hover:border-primary-400"
     >
       <div className="relative overflow-hidden">
         <img
@@ -49,7 +49,7 @@ export default function ProductCard({ product, onProductClick }: ProductCardProp
         
         {/* Sale Badge */}
         {product.isOnSale && (
-          <div className="absolute top-3 left-3 bg-pastel-pink-dark text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm border border-pastel-pink animate-pulse transform -rotate-6">
+          <div className="absolute top-3 left-3 bg-pastel-orange-dark text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm border border-pastel-orange animate-pulse transform -rotate-6">
             SALE
           </div>
         )}
@@ -75,19 +75,19 @@ export default function ProductCard({ product, onProductClick }: ProductCardProp
         </button>
       </div>
       
-      <div className="p-4 bg-pastel-blue-light">
-        <h3 className="text-lg font-semibold text-slate-700 mb-2 group-hover:text-pastel-blue-dark transition-colors">
+      <div className="p-4 bg-primary-50">
+        <h3 className="text-lg font-semibold text-primary-700 mb-2 group-hover:text-primary-600 transition-colors">
           {product.name}
         </h3>
         
-        <p className="text-slate-500 text-sm font-medium mb-3 line-clamp-2">
+        <p className="text-primary-500 text-sm font-medium mb-3 line-clamp-2">
           {product.description}
         </p>
         
         <div className="flex items-center mb-2">
           <div className="flex items-center bg-pastel-orange-light px-2 py-1 rounded-full border border-pastel-orange">
             <Star className="w-3 h-3 text-pastel-orange-dark fill-current" />
-            <span className="text-xs font-medium text-slate-600 ml-1">
+            <span className="text-xs font-medium text-primary-600 ml-1">
               {product.rating} ({product.reviews})
             </span>
           </div>
@@ -95,7 +95,7 @@ export default function ProductCard({ product, onProductClick }: ProductCardProp
         
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="text-lg font-semibold text-slate-700 bg-white px-2 py-1 rounded-full border border-pastel-blue">${product.price}</span>
+            <span className="text-lg font-semibold text-primary-700 bg-white px-2 py-1 rounded-full border border-primary-300">${product.price}</span>
             {product.originalPrice && (
               <span className="text-sm font-medium text-pastel-pink-dark line-through bg-pastel-pink-light px-2 py-1 rounded-full">
                 ${product.originalPrice}

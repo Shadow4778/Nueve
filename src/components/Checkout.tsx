@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, MapPin, CreditCard, Truck, Plus } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { Address, CheckoutData } from '../types';
+import { Address } from '../types';
 
 export default function Checkout() {
   const { state, dispatch } = useApp();
@@ -73,8 +73,8 @@ export default function Checkout() {
       dispatch({ type: 'CLOSE_CHECKOUT' });
       setLoading(false);
       
-      // Show success message or redirect
-      alert('Order placed successfully!');
+      // Show success message
+      alert(`Order placed successfully! Order ID: ${order.id}`);
     }, 2000);
   };
 
@@ -152,7 +152,7 @@ export default function Checkout() {
                         placeholder="City"
                         value={newAddress.city}
                         onChange={(e) => setNewAddress({...newAddress, city: e.target.value})}
-                        className="px-3 py-2 bg-pastel-pink-light border border-pastel-pink rounded-lg focus:outline-none focus:ring-2 focus:ring-pastel-pink-dark text-sm font-medium"
+                        className="px-3 py-2 bg-pastel-blue-light border border-pastel-blue rounded-lg focus:outline-none focus:ring-2 focus:ring-pastel-blue-dark text-sm font-medium"
                       />
                       <input
                         type="text"
@@ -166,7 +166,7 @@ export default function Checkout() {
                         placeholder="Pincode"
                         value={newAddress.pincode}
                         onChange={(e) => setNewAddress({...newAddress, pincode: e.target.value})}
-                        className="px-3 py-2 bg-pastel-blue-light border border-pastel-blue rounded-lg focus:outline-none focus:ring-2 focus:ring-pastel-blue-dark text-sm font-medium"
+                        className="px-3 py-2 bg-pastel-orange-light border border-pastel-orange rounded-lg focus:outline-none focus:ring-2 focus:ring-pastel-orange-dark text-sm font-medium"
                       />
                     </div>
                     <div className="flex items-center space-x-2">
@@ -199,6 +199,18 @@ export default function Checkout() {
                 )}
 
                 <div className="space-y-2">
+                  {state.addresses.length === 0 && !showAddAddress && (
+                    <div className="text-center py-4">
+                      <p className="text-slate-600 mb-2">No addresses found</p>
+                      <button
+                        onClick={() => setShowAddAddress(true)}
+                        className="text-pastel-green-dark hover:text-pastel-green font-medium"
+                      >
+                        Add your first address
+                      </button>
+                    </div>
+                  )}
+                  
                   {state.addresses.map((address) => (
                     <div
                       key={address.id}

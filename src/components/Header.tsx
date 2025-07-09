@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, ShoppingCart, Heart, Menu, X, User, Package, LogOut } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
@@ -11,6 +11,7 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
   const { state, dispatch } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   
   const cartItemCount = state.cart.reduce((total, item) => total + item.quantity, 0);
   const wishlistItemCount = state.wishlist.length;
@@ -19,6 +20,20 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
     dispatch({ type: 'SET_USER', payload: null });
     setShowUserMenu(false);
   };
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-pastel-blue-light border-b-2 border-pastel-blue shadow-sm">
@@ -78,7 +93,7 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
 
             {/* User Menu */}
             {state.user ? (
-              <div className="relative">
+              <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="bg-pastel-lemon p-2 rounded-full hover:bg-pastel-lemon-dark hover:scale-110 transition-all duration-200 shadow-sm border border-pastel-lemon-dark transform hover:rotate-6"
@@ -98,14 +113,14 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
                           dispatch({ type: 'TOGGLE_ORDERS' });
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-2"
+                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-2 transition-colors"
                       >
                         <Package className="w-4 h-4" />
                         <span>My Orders</span>
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-pink-light flex items-center space-x-2"
+                        className="w-full text-left px-4 py-2 text-slate-600 hover:bg-pastel-blue-light flex items-center space-x-2 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
                         <span>Logout</span>
@@ -117,9 +132,9 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
             ) : (
               <button
                 onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}
-                className="bg-pastel-lemon p-3 rounded-full hover:bg-pastel-lemon-dark hover:scale-110 transition-all duration-200 shadow-sm border-2 border-pastel-lemon-dark transform hover:rotate-6"
+                className="bg-pastel-lemon p-2 rounded-full hover:bg-pastel-lemon-dark hover:scale-110 transition-all duration-200 shadow-sm border border-pastel-lemon-dark transform hover:rotate-6"
               >
-                <User className="w-5 h-5 text-slate-700" />
+                <User className="w-4 h-4 text-slate-600" />
               </button>
             )}
 
@@ -130,7 +145,7 @@ export default function Header({ onSearch, searchQuery }: HeaderProps) {
             >
               <Heart className="w-4 h-4 text-slate-600" />
               {wishlistItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-pastel-pink-dark text-white text-xs font-medium rounded-full w-5 h-5 flex items-center justify-center border border-white shadow-sm animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-pastel-blue-dark text-white text-xs font-medium rounded-full w-5 h-5 flex items-center justify-center border border-white shadow-sm animate-pulse">
                   {wishlistItemCount}
                 </span>
               )}

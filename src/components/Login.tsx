@@ -23,8 +23,9 @@ export default function Login() {
     setTimeout(() => {
       setLoading(false);
       setStep('otp');
-      // For demo purposes, show the OTP in console
+      // For demo purposes, show the OTP in console and alert
       console.log('Demo OTP: 123456');
+      alert('Demo OTP sent: 123456 (Check console for OTP)');
     }, 1000);
   };
 
@@ -51,6 +52,11 @@ export default function Login() {
           }
         });
         dispatch({ type: 'CLOSE_LOGIN' });
+        // Reset form
+        setStep('phone');
+        setPhone('');
+        setOtp('');
+        setAcceptTerms(false);
       }
     }, 1000);
   };
@@ -74,6 +80,14 @@ export default function Login() {
         }
       });
       dispatch({ type: 'CLOSE_LOGIN' });
+      // Reset form
+      setStep('phone');
+      setPhone('');
+      setOtp('');
+      setName('');
+      setBirthDate('');
+      setGender('');
+      setAcceptTerms(false);
     }, 1000);
   };
 
@@ -86,7 +100,17 @@ export default function Login() {
              step === 'otp' ? 'Verify OTP' : 'Complete Profile'}
           </h2>
           <button
-            onClick={() => dispatch({ type: 'CLOSE_LOGIN' })}
+            onClick={() => {
+              dispatch({ type: 'CLOSE_LOGIN' });
+              // Reset form when closing
+              setStep('phone');
+              setPhone('');
+              setOtp('');
+              setName('');
+              setBirthDate('');
+              setGender('');
+              setAcceptTerms(false);
+            }}
             className="bg-white text-slate-500 p-2 hover:bg-pastel-blue hover:text-white rounded-full transition-all duration-200 shadow-sm border border-pastel-blue hover:scale-110 hover:rotate-90"
           >
             <X className="w-4 h-4" />
@@ -110,6 +134,9 @@ export default function Login() {
                     className="w-full pl-10 pr-4 py-3 bg-pastel-blue-light border border-pastel-blue rounded-xl focus:outline-none focus:ring-2 focus:ring-pastel-blue-dark text-slate-600 font-medium"
                   />
                 </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Demo: Enter any 10-digit number
+                </p>
               </div>
 
               <div className="flex items-start space-x-2">
@@ -147,6 +174,12 @@ export default function Login() {
               <p className="text-sm text-slate-600 text-center">
                 Enter the 6-digit OTP sent to +91 {phone}
               </p>
+              
+              <div className="bg-pastel-lemon-light p-3 rounded-lg border border-pastel-lemon">
+                <p className="text-sm text-slate-600 text-center">
+                  <strong>Demo OTP:</strong> 123456
+                </p>
+              </div>
               
               <div>
                 <input
@@ -230,7 +263,7 @@ export default function Login() {
               <button
                 onClick={handleCompleteProfile}
                 disabled={!name || !birthDate || !gender || loading}
-                className="w-full bg-pastel-pink-dark text-white py-3 rounded-xl font-medium hover:bg-pastel-pink transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm border border-pastel-pink hover:scale-105"
+                className="w-full bg-pastel-blue-dark text-white py-3 rounded-xl font-medium hover:bg-pastel-blue transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm border border-pastel-blue hover:scale-105"
               >
                 {loading ? 'Creating Account...' : 'Complete Profile'}
               </button>
